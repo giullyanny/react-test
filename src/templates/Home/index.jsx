@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import './styles.css';
 
 import { Posts } from '../../components/Posts';
-import { loadPosts, loadPostsPhotos } from '../../utils/load-posts-photos';
+import { loadPosts } from '../../utils/load-posts';
 import { Button } from '../../components/Button';
 import { TextInput } from '../../components/TextInput';
 
@@ -15,7 +15,7 @@ export const Home = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleLoadPosts = useCallback(async (page, postsPerPage) => {
-    const postsAndPhotos = await loadPostsPhotos();
+    const postsAndPhotos = await loadPosts();
 
     setPosts(postsAndPhotos.slice(page, postsPerPage));
     setAllPosts(postsAndPhotos);
@@ -60,7 +60,7 @@ export const Home = () => {
       {filteredPosts.length === 0 && <p>Não existem posts =(</p>}
 
       <div className="button-container">
-        {!searchValue && <Button text="carregar mais posts" onClick={loadMorePosts} disabled={noMorePosts} />}
+        {!searchValue && <Button text="Load more posts" onClick={loadMorePosts} disabled={noMorePosts} />}
       </div>
     </section>
   );
